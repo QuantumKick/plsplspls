@@ -40,7 +40,6 @@ interface Answers {
   excitement: number;
 }
 
-
 const HeartBackground = dynamic(() => import("@/components/HeartBackground"), {
   ssr: false,
 });
@@ -275,7 +274,7 @@ export default function EnchantingDateProposalApp() {
       </StepCard>
     </motion.div>,
 
-     
+      
     <motion.div key="step3" className="text-center" {...fadeInUp}>
   <StepCard stepNumber={3} totalSteps={5}>
     <h2 className="text-3xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-fuchsia-600">
@@ -286,7 +285,7 @@ export default function EnchantingDateProposalApp() {
       {!showInput ? (
         <div className="grid grid-cols-2 gap-6 mb-6">
           {[
-            { name: "Bowling",}, // Or use a custom SVG / icon of choice
+            { name: "Bowling",}, 
             { name: "Arcade", icon: <Gamepad2 className="mx-auto mb-2 w-6 h-6" /> },
             { name: "Something else", icon: <PlusCircle className="mx-auto mb-2 w-6 h-6" /> },
             { name: "Uwi na q"},
@@ -393,7 +392,7 @@ export default function EnchantingDateProposalApp() {
       </StepCard>
     </motion.div>,
 
-     
+      
     <motion.div key="step5" className="text-center" {...fadeInUp}>
       <StepCard stepNumber={5} totalSteps={5}>
       <h2 className="text-5xl sm:text-6xl font-playfair font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-red-500">
@@ -449,10 +448,24 @@ export default function EnchantingDateProposalApp() {
 
   useEffect(() => {
     const saveAnswers = async () => {
-      console.log('Saved answers:', answers);
+      // FIX: Extract local Year, Month, Day digits to prevent ISO string UTC conversion!
+      let dateString: string | null = null;
+      if (answers.date) {
+        const year = answers.date.getFullYear();
+        const month = String(answers.date.getMonth() + 1).padStart(2, '0');
+        const day = String(answers.date.getDate()).padStart(2, '0');
+        dateString = `${year}-${month}-${day}`;
+      }
+
+      const payload = {
+        ...answers,
+        date: dateString, // Pass pure "YYYY-MM-DD" string instead of Date object!
+      };
+
+      console.log('Saved answers:', payload);
       
       // Save to localStorage
-      localStorage.setItem('dateProposalAnswers', JSON.stringify(answers));
+      localStorage.setItem('dateProposalAnswers', JSON.stringify(payload));
 
       // Send to your email
       try {
@@ -461,7 +474,7 @@ export default function EnchantingDateProposalApp() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(answers)
+          body: JSON.stringify(payload)
         });
       } catch (error) {
         console.error('Failed to send response:', error);
