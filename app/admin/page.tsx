@@ -66,8 +66,11 @@ export default function AdminPage() {
             <div className="space-y-2 text-left">
             <p>
               Date: {
-                response.data.date 
-                  ? new Date(`${response.data.date}T00:00:00`).toLocaleDateString() 
+                response.data.date
+                  ? (() => {
+                      const [year, month, day] = response.data.date.split('T')[0].split(/[-/]/);
+                      return `${month}/${day}/${year}`;
+                    })()
                   : 'Not selected'
               }
             </p>
