@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-// @ts-expect-error: CSS import type declarations missing
 import "./globals.css";
 
 const geistSans = localFont({
