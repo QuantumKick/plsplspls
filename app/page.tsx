@@ -100,7 +100,7 @@ export default function EnchantingDateProposalApp() {
     
     <motion.div key="step0" className="text-center" {...fadeInUp}>
       <h1 className="text-4xl sm:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-red-500">
-        My dearest, gabrielle
+        My dearest, Gabrielle
         <span className="block mt-4 text-2xl sm:text-3xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-red-600">
               Would you go see Spider-Man: Brand New Day with me?
         </span>

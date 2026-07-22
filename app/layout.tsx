@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+// @ts-expect-error: CSS import type declarations missing
 import "./globals.css";
 
 const geistSans = localFont({
@@ -16,6 +17,17 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Brand New Date",
   description: "with great power, comes great responsibility",
+  openGraph: {
+    title: "Brand New Date",
+    description: "with great power, comes great responsibility",
+    images: ["/og-image.jpg"], // Ensure image is located at public/og-image.jpg
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Brand New Date",
+    description: "with great power, comes great responsibility",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
