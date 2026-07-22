@@ -15,6 +15,22 @@ interface StoredResponse {
   };
 }
 
+// Helper to format dates strictly as local date without timezone shifts
+function formatExactDate(dateStr: string): string {
+  // If date contains 'T' (e.g. 2026-02-14T00:00:00.000Z), grab just the date portion
+  const cleanDateStr = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+  
+  // Extract numbers directly from the string
+  const parts = cleanDateStr.match(/\d+/g);
+  if (!parts || parts.length < 3) return dateStr; // fallback to raw string if format is unusual
+
+  const [year, month, day] = parts.map(Number);
+  
+  // Use local Date constructor (year, monthIndex, day) to completely lock the local date
+  const dateObj = new Date(year, month - 1, day);
+  return dateObj.toLocaleDateString();
+}
+
 export default function AdminPage() {
   const [responses, setResponses] = useState<StoredResponse[]>([])
 
@@ -64,16 +80,8 @@ export default function AdminPage() {
               Response Time: {new Date(response.timestamp).toLocaleString()}
             </p>
             <div className="space-y-2 text-left">
-            <p>
-              Date: {
-                response.data.date
-                  ? (() => {
-                      const [year, month, day] = response.data.date.split('T')[0].split(/[-/]/);
-                      return `${month}/${day}/${year}`;
-                    })()
-                  : 'Not selected'
-              }
-            </p>
+              {/* UPDATED DATE LINE BELOW */}
+              <p>Date: {response.data.date ? formatExactDate(response.data.date) : 'Not selected'}</p>
               <p>Time: {response.data.time || 'Not selected'}</p>
               <p>Food Choices: {response.data.food.join(', ') || 'Not selected'}</p>
               <p>Activity: {response.data.activity || 'Not selected'}</p>
@@ -84,4 +92,4 @@ export default function AdminPage() {
       )}
     </div>
   )
-} 
+}
