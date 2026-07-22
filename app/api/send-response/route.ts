@@ -11,6 +11,22 @@ const transporter = nodemailer.createTransport({
   }
 })
 
+// Helper function to lock the exact date string without server timezone shifts
+function formatExactDate(dateStr: string): string {
+  if (!dateStr) return 'Not selected';
+  
+  // Clean off ISO timestamp strings if present (e.g. 2026-02-14T00:00:00)
+  const cleanStr = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+  const parts = cleanStr.match(/\d+/g);
+  
+  if (!parts || parts.length < 3) return dateStr;
+  
+  const [year, month, day] = parts.map(Number);
+  
+  // Create a UTC-neutral date output (Month/Day/Year)
+  return `${month}/${day}/${year}`;
+}
+
 export async function POST(request: Request) {
   if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
     console.error('Missing email credentials');
@@ -20,13 +36,16 @@ export async function POST(request: Request) {
   try {
     const data = await request.json()
     
+    // Format date string safely
+    const formattedDate = formatExactDate(data.date);
+
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
       subject: 'YOU HAVE MAIL!',
       html: `
         <h1>She responded!</h1>
-        <p>Date: ${new Date(data.date).toLocaleDateString()}</p>
+        <p>Date: ${formattedDate}</p>
         <p>Time: ${data.time}</p>
         <p>Food: ${data.food.join(', ')}</p>
         <p>Activity: ${data.activity === 'Uwi na q' ? "Uuwi na s'ya" : data.activity}</p>
