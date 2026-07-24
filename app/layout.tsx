@@ -14,18 +14,21 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  // Replace with your actual live Vercel URL or custom domain
+  metadataBase: new URL('https://elleven-elleven.vercel.app'),
+
   title: "Brand New Date",
   description: "with great power, comes great responsibility",
   openGraph: {
     title: "Brand New Date",
     description: "with great power, comes great responsibility",
-    images: ["og-image.jpg"], // Ensure image is located at public/og-image.jpg
+    images: ["/og-image.jpg"], // Looks in public/og-image.jpg
   },
   twitter: {
     card: "summary_large_image",
     title: "Brand New Date",
     description: "with great power, comes great responsibility",
-    images: ["og-image.jpg"],
+    images: ["/og-image.jpg"],
   },
 };
 
