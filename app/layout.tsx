@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "./globals.css"; // Fixed relative import
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -14,15 +15,24 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  // Replace with your actual live Vercel URL or custom domain
-  metadataBase: new URL('https://elleven-elleven.vercel.app'),
-
+  metadataBase: new URL("https://elleven-elleven.vercel.app"),
   title: "Brand New Date",
   description: "with great power, comes great responsibility",
   openGraph: {
     title: "Brand New Date",
     description: "with great power, comes great responsibility",
-    images: ["/og-image.jpg"], // Looks in public/og-image.jpg
+    url: "https://elleven-elleven.vercel.app",
+    siteName: "Brand New Date",
+    images: [
+      {
+        url: "/og-image.jpg", // Automatically prepended with metadataBase
+        width: 1200,
+        height: 630,
+        alt: "Brand New Date Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
