@@ -19,13 +19,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Brand New Date",
     description: "with great power, comes great responsibility",
-    images: ["/og-image.jpg"], // Ensure image is located at public/og-image.jpg
+    images: ["og-image.jpg"], // Ensure image is located at public/og-image.jpg
   },
   twitter: {
     card: "summary_large_image",
     title: "Brand New Date",
     description: "with great power, comes great responsibility",
-    images: ["/og-image.jpg"],
+    images: ["og-image.jpg"],
   },
 };
 
