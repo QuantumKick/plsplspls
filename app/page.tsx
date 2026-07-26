@@ -229,7 +229,7 @@ export default function EnchantingDateProposalApp() {
         disabled={!answers.date || !answers.time}
         className="bg-gradient-to-r from-purple-600 to-fuchsia-500 hover:from-purple-700 hover:to-fuchsia-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-sm"
       >
-        <Clock className="mr-2 h-5 w-5" /> Set our date!{" "}
+        <Clock className="mr-2 h-5 w-5" /> Set the date!{" "}
         <Heart className="ml-2 h-5 w-5" />
       </Button>
       </StepCard>
@@ -244,10 +244,7 @@ export default function EnchantingDateProposalApp() {
       <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8">
         {[
           { name: "Coffee or Tea, Kapit bisig!", icon: <Coffee className="w-6 h-6" /> },
-          { name: "Burger", icon: <Utensils className="w-6 h-6" /> },
-          { name: "Pizza", icon: <Utensils className="w-6 h-6" /> },
-          { name: "French Fries", icon: <Utensils className="w-6 h-6" /> },
-          { name: "Fried Chicken?", icon: <Utensils className="w-6 h-6" /> },
+          { name: "Mcdo w/ happy meal?", icon: <Utensils className="w-6 h-6" /> },
           { name: "''Kahit ano''", icon: <Utensils className="w-6 h-6" /> },
         ].map(({ name, icon }) => (
           <SelectButton
